@@ -1,18 +1,37 @@
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 import router from './router'
-import store from './store/'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import store from './store'
 
-Vue.config.productionTip = false;
-
+//导入ElementUI相关内容
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-new Vue({
-	el: '#app',
-	router,
-	store,
-	template: '<App/>',
-	components: { App }
+// 导入全局样式表
+import "./assets/css/global.css"
+
+//全局api
+import api from './assets/config/api.js'
+Vue.prototype.$api = api
+
+//全局axios配置
+import axios from 'axios'
+Vue.prototype.$http = axios
+axios.defaults.baseURL = '/'
+
+//拦截器 发送请求前,会发送一个token
+axios.interceptors.request.use(config =>
+{
+    config.headers.authorization = window.sessionStorage.getItem('token');
+    return config;
 })
+
+
+Vue.config.productionTip = false
+
+new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount('#app')
