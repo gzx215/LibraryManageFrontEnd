@@ -1,15 +1,9 @@
 <template>
-    <div id="app" class="fillcontain">
-		    <router-view></router-view>
-    </div>
+  <div id="app">
+<!--    路由占位符-->
+    <router-view/>
+  </div>
 </template>
 
-<script>
-    export default {
-    	
-    }
-</script>
-
-<style lang="less">
-	@import './style/common';
+<style>
 </style>
